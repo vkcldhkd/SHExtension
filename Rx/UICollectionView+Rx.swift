@@ -5,10 +5,14 @@
 
 import RxCocoa
 
+import RxCocoa
+
 extension Reactive where Base: UICollectionView{
     var backgroundView: Binder<UIView?>{
-        return Binder(self.base, binding:{ (base,view) in
+        return Binder(self.base, binding:{ [weak base = self.base] (collectionView,view) in
+            guard let base = base else { return }
             base.backgroundView = view
         })
     }
 }
+

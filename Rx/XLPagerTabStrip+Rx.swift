@@ -5,11 +5,11 @@
 
 import RxCocoa
 import XLPagerTabStrip
+
 extension Reactive where Base: PagerTabStripViewController{
-    
-    
     public var moveTo: Binder<Int>{
-        return Binder(self.base, binding: { (base, index) in
+        return Binder(self.base, binding: { [weak base = self.base] (_, index) in
+            guard let base = base else { return }
             base.moveToViewController(at: index, animated: true)
         })
     }
